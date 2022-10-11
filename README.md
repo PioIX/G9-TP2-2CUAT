@@ -9,3 +9,6 @@ En la misma tendremos una pagina principal con algunas previsualizaciones, y sus
 El usuario "administrador" podra agregar, sacar, y modificar pares.
  
  Para poder usar la pagina necesitaremos iniciar sesion y en el caso de no tener cuenta crear una.
+ 
+ 
+[Boceto HTML](https://www.canva.com/design/DAFOfUUdbO0/IVtc5NMf0k0RgzGV53njrg/view?utm_content=DAFOfUUdbO0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
