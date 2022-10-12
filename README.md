@@ -12,3 +12,6 @@ El usuario "administrador" podra agregar, sacar, y modificar pares.
  
  
 [Boceto HTML](https://www.canva.com/design/DAFOfUUdbO0/IVtc5NMf0k0RgzGV53njrg/view?utm_content=DAFOfUUdbO0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
+
+[ReplitL](https://replit.com/@Ivo-LucianoLuci/Proyecto-Couture-Culture#main.py)
