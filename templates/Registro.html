@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="icon" type="png" href="static/favicon-32x32.png" sizes="32x32" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Registrarse</title>
+  <link href="static/styleRegistro.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <script src="static/script.js"></script>
+  <script src="https://replit.com/public/js/replit-badge.js" theme="blue" defer></script>
+ <header class="encabezadoRegistro">
+      <div class="logoCentrado">
+        <a href="{{ url_for('redireccionIndex') }}" class="Logo"><img src="static/logo.png" width="150" height= "70"></a>
+      </div>
+ </header>
+  <form class="formulario">
+    
+    <h1>Registrarse</h1>
+     <div class="contenedor">
+     
+     <div class="input-contenedor">
+         <input type="text" placeholder="Nombre Completo">
+         </div>
+         
+         <div class="input-contenedor">
+         <input type="text" placeholder="Correo Electronico">
+         </div>
+         
+         <div class="input-contenedor">
+         <input type="password" placeholder="Contraseña">
+         
+         </div>
+         <input type="submit" value="Registrate" class="button">
+         <p>Al registrarte, aceptas nuestros <b>Terminos de servicio</b> y <b>Politica de privacidad</b></p>
+         <p>¿Ya tenes una cuenta? <a class="link" href="{{ url_for('redireccionLogin') }}">Iniciar Sesion</a></p>
+     </div>
+    </form>
+</body>
+
+</html>
