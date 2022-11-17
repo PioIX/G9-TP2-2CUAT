@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block titulopestaña %}
+<title> {{ nombrep }} </title>
+{% endblock %}
+      {% block nombre_snk %}
+      <h3 id="snk-nombre"> {{ nombrep }}</h3>  
+      {% endblock %}
+
+    {% block img_snk %}
+    <img src="static/products/{{ foto }}" width="550" height="400" alt="" class="producto-img" class="product-title">
+    {% endblock %}
+
+    <input type="hidden" name="idProducto" value="1">
+
+      {% block precio_snk %}
+      <div class="precio"> {{ precio }} </div>
+      {% endblock %}
+
+          {% block link_goat %}
+          <a href="{{ linkGOAT }}">
+            {% endblock %}
+
+{% block link_stockx %}
+          <a href="{{ linkStockx }}">
+            {% endblock %}
+
+          {%block link_farfetch%}
+          <a href="{{ linkFarfetch }}">
+             {% endblock %}
+
+
+    {% block detalles %}
+  <table>
+  <tr>
+    <td>Codigo </td>
+    {% if session['nombre'] == 'admin' %}
+<section>
+        <label>Codigo: </label>
+        <input type="text" id="Codigo" name="Codigo"><br>
+        <input type="button" onclick="envioAjaxPOST()" value="Añadir Codigo">
+        <form action="/media" method="POST"></form>
+  
+  {% else %}
+   <td>{{ codigo }}</td>
+  {% endif %}
+  <tr>
+    <td>Colorway </td>
+    {% if session['nombre'] == 'admin' %}
+<section>
+        <label>Color: </label>
+        <input type="text" id="color" name="color"><br>
+        <input type="button" onclick="envioAjaxPOST()" value="Añadir Color">
+        <form action="/media" method="POST"></form>
+</section>
+  {% else %}
+   <td>{{ color }}</td>
+  {% endif %}
+  
+  <tr>
+    <td>Precio Retail </td>
+    {% if session['nombre'] == 'admin' %}
+<section>
+        <label>Precio Retail: </label>
+        <input type="text" id="color" name="retail"><br>
+        <input type="button" onclick="envioAjaxPOST()" value="Añadir Precio Retail">
+        <form action="/media" method="POST"></form>
+</section>
+  {% else %}
+   <td>{{ retail }}</td>
+  {% endif %}
+
+  <tr>
+    <td>Fecha de release </td>
+    {% if session['nombre'] == 'admin' %}
+<section>
+        <label>Precio Release: </label>
+        <input type="text" id="color" name="release"><br>
+        <input type="button" onclick="envioAjaxPOST()" value="Añadir Precio Release">
+        <form action="/media" method="POST"></form>
+</section>
+  {% else %}
+   <td>{{ release }}</td>
+  </table>
+  {% endif %}
+    {% endblock %}
+
+{% block descripcion %}
+    {% if session['nombre'] == 'admin' %}
+<article>
+<article>
+      <section>
+        <label>Pregunta: </label>
+        <input type="text" id="descripcion" name="descripcion"><br>
+        <input type="button" onclick="envioAjaxPOST()" value="Añadir Descripcion">
+        <form action="/media" method="POST"></form>
+      </section>
+    </article>
+
+  <article>
+      <section>
+        <input type="button" onclick="envioAjaxGET()" value="Recibir Descripcion">
+        <form action="/recepcionAjax" method="GET"></form>
+      </section>
+    </article>
+  {% else %}
+    <p id="descripcion">
+      {{ descripcion }}
+    </p>
+    <input> tipo 
+    {{ tipo }}
+  </input>
+  {% endif %}
+  <script src="static/script.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/topbar.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    {% endblock %}
+  

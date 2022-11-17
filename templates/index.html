@@ -5,21 +5,30 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Couture Culture</title>
-  <link href="static/style.css" rel="stylesheet" type="text/css" />
+  <link href="static/styleHome.css" rel="stylesheet" type="text/css" />
   <link href="static/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
     <div class="header">
       <div class="login-register"
         <nav>
-            <div>
-              <ul class="navLinks">
-              <a id="sesion" href="{{ url_for('redireccionLogin') }}"> Iniciar Sesion </a>  
-  	          <div class="lineaLogin"></div>
-              <a id="registro" href="{{ url_for('redireccionRegistro') }}"> Registrarse </a>
-              </ul>
-            </div>
+              {% if logueado == True %}
+                  <ul class="navLinks">
+                  <p id="sesion" class="nombreSesion"> Bienvenido, {{nombre}}! </p>
+                  </ul>
+              {% else %}
+                  <div>
+                  <ul class="navLinks">
+                  <a id="sesion" href="{{ url_for('redireccionLogin') }}"> Iniciar Sesion </a>  
+      	          <div class="lineaLogin"></div>
+                  <a id="registro" href="{{ url_for('redireccionRegistro') }}"> Registrarse </a>
+                  </ul>
+                </div>
+              {% endif %}
         </nav>
       </div>
       
@@ -28,20 +37,6 @@
       </div>
       
       <div class="busqueda-favs">
-        <div class="darkmodedv">
-          <button class="darkmode" onclick="darkMode()">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sun-moon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-   <path d="M9.173 14.83a4 4 0 1 1 5.657 -5.657"></path>
-   <path d="M11.294 12.707l.174 .247a7.5 7.5 0 0 0 8.845 2.492a9 9 0 0 1 -14.671 2.914"></path>
-   <path d="M3 12h1"></path>
-   <path d="M12 3v1"></path>
-   <path d="M5.6 5.6l.7 .7"></path>
-   <path d="M3 21l18 -18"></path>
-</svg>
-    <main>
-      </button>
-        </div>
         <div class="favoritos">
           <li>
             <a href="bookmark">
@@ -73,16 +68,16 @@
       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
     </div>
     <div class="carousel-inner" >
-      <div class="carousel-item active" data-bs-interval="3000">
+      <div class="carousel-item active" data-bs-interval="2000">
         <img src="static/img/slider_img1.png" id ="estilo-img" class="d-block w-100" alt="...">
       </div>
-      <div class="carousel-item" data-bs-interval="3000">
+      <div class="carousel-item" data-bs-interval="2000">
         <img src="static/img/slider_img2.jpg" id ="estilo-img" class="d-block w-100" alt="...">
       </div>
-      <div class="carousel-item" data-bs-interval="3000">
+      <div class="carousel-item" data-bs-interval="2000">
         <img src="static/img/slider_img3.jpg" id ="estilo-img" class="d-block w-100" alt="...">
       </div>
-      <div class="carousel-item" data-bs-interval="3000">
+      <div class="carousel-item" data-bs-interval="2000">
         <img src="static/img/slider_img4.png" id ="estilo-img" class="d-block w-100" alt="...">
       </div>
     </div>
@@ -96,46 +91,95 @@
     </button>
   </div>
   </div> 
-  <div> 
-      <form class="filtrar-por" method="get">
-        <select name="orderby" class="select-filtrar-por">
-        <option value="menu_order" selected="selected">Filtrar por: </option>
-        <option value="popularidad">Mas populares  </option>
-        <option value="fecha">Lo mas nuevo  </option>
-        <option value="precio-bajo-alto">Precios: mas bajos a mas altos  </option>
-        <option value="precio-alto-bajo">Precios: mas altos a mas bajos  </option>
-      </select>
-      <input type="hidden" name="paged" value="1">
-    </form>
+  <label id="filtros" for="selectFiltros" class="category_list">
+    <select id="selectFiltros" onchange="filtrar()">
+        <option value="todo" href="#" class="category_item" category="all" onclick="filtrado('')"> Todo </option>
+				<option  value="zapatillas" href="#" class="category_item" category="Zapatillas" onclick="filtrarProductos('zapatillas')"> Zapatillas </option>
+				<option  value="pantalones" href="#" class="category_item" category="Pantalones" onclick="filtrarProductos('pantalones')"> Pantalones </option>
+				<option  value="buzos" href="#" class="category_item" category="buzosCamperas" onclick="filtrarProductos('buzos')"> Buzos Y Camperas </option>
+				<option  value="remeras" href="#" class="category_item" category="Remeras" onclick="filtrarProductos('remeras')"> Remeras </option>
+    </select>
   </div>
   <br>
   </main> 
   <section class="container-products">
-    <a href="{{ url_for('redireccionProducto') }}">
-      <div class="product" href="{{ url_for('redireccionProducto') }}">
-      <img src="static/products/producto_1.jpg"  width="130" height= "100" alt="" class="product-img" class="product-title" href="{{ url_for('redireccionProducto') }}">
-      <div class="lineaProducto"></div>
+  {% for elemento in zapatillas %}
+  <a class="zapatillas">
+    <form id="form{{elemento[0]}}" action="/producto" method="POST">
+      <input name="producto" value="{{elemento[0]}}" hidden>
+      <input name="tipo" value="zapatillas" hidden>
+    </form>
+    
+      <div class="product" onclick="document.getElementById('form{{elemento[0]}}').submit()">
+      <img src="static/products/{{elemento[1]}}" width="130" height= "100" alt="" class="product-img">
       <div class="product-description">
         <p class="product-title">
-          Jordan 1
+          {{elemento[0]}}
         </p>
-        <span class="product-price">$1.000</span>
       </div>
-      <svg xmlns="http://www.w3.org/2000/svg" class="icon-cart" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-   <circle cx="6" cy="19" r="2"></circle>
-   <circle cx="17" cy="19" r="2"></circle>
-   <path d="M17 17h-11v-14h-2"></path>
-   <path d="M6 5l14 1l-1 7h-13"></path>
-</svg>
     </div>
       </a>
+  {% endfor %}
+
+  {% for elemento in pantalones %}
+   <a class="pantalones">
+    <form id="form{{elemento[0]}}" action="/producto" method="POST">
+      <input name="producto" value="{{elemento[0]}}" hidden>
+      <input name="tipo" value="pantalones" hidden>
+    </form>
+    
+      <div class="product" onclick="document.getElementById('form{{elemento[0]}}').submit()">
+      <img src="static/products/{{elemento[1]}}"  width="130" height= "100" alt="" class="product-img">
+      <div class="product-description">
+        <p class="product-title">
+          {{elemento[0]}}
+        </p>
+      </div>
+    </div>
+    </a>
+  {% endfor %}
+
+  {% for elemento in buzos %}
+    <a class="buzos">
+    <form id="form{{elemento[0]}}" action="/producto" method="POST">
+      <input name="producto" value="{{elemento[0]}}" hidden>
+      <input name="tipo" value="buzos" hidden>
+    </form>
+    
+      <div class="product" onclick="document.getElementById('form{{elemento[0]}}').submit()">
+      <img src="static/products/{{elemento[1]}}"  width="130" height= "100" alt="" class="product-img">
+      <div class="product-description">
+        <p class="product-title">
+          {{elemento[0]}}
+        </p>
+      </div>
+    </div>
+    </a>
+  {% endfor %}
+
+  {% for elemento in remeras %}
+    <a class="remeras">
+    <form id="form{{elemento[0]}}" action="/producto" method="POST">
+      <input name="producto" value="{{elemento[0]}}" hidden>
+      <input name="tipo" value="remeras" hidden>
+    </form>
+    
+      <div class="product" onclick="document.getElementById('form{{elemento[0]}}').submit()">
+      <img src="static/products/{{elemento[1]}}"  width="130" height= "100" alt="" class="product-img">
+      <div class="product-description">
+        <p class="product-title">
+          {{elemento[0]}}
+        </p>
+      </div>
+    </div>
+    </a>
+  {% endfor %}
   </section>
-  
-  <div> 
+
   <footer class="footer">
     <div class="redes-sociales">
-        <button href="https://www.instagram.com/couture.culture22/" class="instagram" id="icono_link">
+      <form action="https://www.instagram.com/couture.culture22/" method="get" target="_blank">
+        <button type="submit" class="instagram" id="icono_link">
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-instagram" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
          <rect x="4" y="4" width="16" height="16" rx="4"></rect>
@@ -143,17 +187,19 @@
          <line x1="16.5" y1="7.5" x2="16.5" y2="7.501"></line>
           </svg>
         </button>
+      </form>
           
-        
-        <button href="https://github.com/PioIX/G9-TP2-2CUAT" class="github" id="icono_link">
+        <form action="https://github.com/PioIX/G9-TP2-2CUAT" method="get" target="_blank">
+        <button type="submit" class="github" id="icono_link">
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
        <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path>
           </svg>
         </button>
-            
-        
-        <button href="https://replit.com/@Ivo-LucianoLuci/Proyecto-Couture-Culture#templates/index.html" class="replit" id="icono_link">
+        </form>
+
+      <form action="https://replit.com/@Ivo-LucianoLuci/Proyecto-Couture-Culture#templates/index.html" method="get" target="_blank">
+        <button type="submit" class="replit" id="icono_link">
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-code-circle-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
        <path d="M8.5 13.5l-1.5 -1.5l1.5 -1.5"></path>
@@ -162,13 +208,13 @@
        <path d="M13 9.5l-2 5.5"></path>
           </svg>
         </button>
+      </form>
           
      </div>
   </footer>
-  </div>
     <script src="static/script.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
-
+    <script src="static/topbar.js"></script>
 </body>
 </html>
 
