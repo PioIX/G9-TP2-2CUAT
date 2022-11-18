@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="png" href="static/favicon-32x32.png" sizes="32x32" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesion</title>
+  <link href="static/styleLogin.css" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="encabezado">
+      <div class="logoCentrado">
+        <a href="{{ url_for('redireccionIndex') }}" class="Logo"><img src="static/logo.png" width="150" height= "70"></a>
+      </div>
+ </header>
+  <form action="{{ url_for('cambioPagina')}}" method="POST" class="formulario">
+    
+    <h1>Iniciar Sesion</h1>
+    
+    <div class="contenedor">
+     <div class="input-contenedor">
+         <input type="text" placeholder="Nombre Completo" name="nombre">
+         </div>
+      <div class="input-contenedor">
+        <input type="text" class="Mail"placeholder="Correo Electronico" required name="Mail">
+      </div>
+         
+      <div class="input-contenedor">
+        <input type="password" class="Contraseña"placeholder="Contraseña" required name="Contraseña">
+      </div>
+{% if aviso == True %}
+<a class="alert">Datos incorrectos</a>
+{% endif %}
+      <input type="submit" value="Iniciar Sesion" 
+class="button">
+  <div>
+
+      <p>¿No tenes cuenta? <a class="link" href="{{ url_for('redireccionRegistro') }}">Registrate</a></p>
+  </div>
+      
+    </div>
+  </form>
+</body>
+  <script src="static/topbar.js"></script>
+</html>

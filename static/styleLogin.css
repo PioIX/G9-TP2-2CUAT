@@ -1,0 +1,95 @@
+/*styleLogin*/
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	text-decoration: none;
+	font-family: 'Poppins', sans-serif;
+}
+
+body{
+  background-color: #f7f7f7;
+}
+
+.encabezado{
+  width: 100%;
+	height: 75px;
+  position: relative;
+  border: 1px solid #021c8d;
+  background-color: white;
+}
+
+.logoCentrado{
+  display: flex;
+  justify-content: center;
+}
+
+* {box-sizing: border-box;  
+}
+
+.contenedor{
+  width: 100%;
+  padding: 15px;
+}
+
+.formulario{
+  margin-top: 150px;
+  padding: 3px;
+  border: 1px solid #021c8d;
+  border-radius: 5px;
+  background-color:white;
+}
+
+h1{
+  text-align: center;
+  font-size: 40px;
+}
+
+input[type="text"],
+input[type="password"]{
+  font-size: 20px;
+  width: 100%;
+  padding: 10px;
+  border: none;
+}
+
+.input-contenedor{
+  margin-bottom: 15px;
+  border: 1px solid #021c8d;
+  border-radius: 5px;
+}
+
+.button{
+  border: none;
+  width: 100%;
+  color:white;
+  font-size: 20px;
+  padding: 15px 20px;
+  background:#021c8d ;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+p{
+  text-align: center;
+}
+.link{
+  text-decoration: none;
+  color: #021c8d;
+  font-weight: 600;
+}
+
+@media(min-width:768px)
+{
+  .formulario{
+    margin:auto;
+    width: 500px;
+    margin-top: 150px;
+
+  }
+}
+.alert{
+  color: #red;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
